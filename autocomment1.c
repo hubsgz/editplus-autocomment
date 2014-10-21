@@ -81,14 +81,14 @@ int main(int argc, char *argv[])
 {	
 	char *str= NULL;
 	char *fstr = NULL;
-	int pos;				//functionµÄÎ»ÖÃ
-	int pos_bracket_left;	//×óÀ¨ºÅÎ»ÖÃ
-	int pos_bracket_right;	//ÓÒÀ¨ºÅÎ»ÖÃ
-	char *functionName;		//º¯ÊıÃû
+	int pos;				//functionçš„ä½ç½®
+	int pos_bracket_left;	//å·¦æ‹¬å·ä½ç½®
+	int pos_bracket_right;	//å³æ‹¬å·ä½ç½®
+	char *functionName;		//å‡½æ•°å
 	int functionLen;
 	char *p;
-	struct StringArr *head;  //Í·½Úµã
-	struct StringArr *lastnode;			//Î²½Úµã
+	struct StringArr *head;  //å¤´èŠ‚ç‚¹
+	struct StringArr *lastnode;			//å°¾èŠ‚ç‚¹
 	int i=0, paramNum=0, start=0, end=0;
 	char c;
 	char *paramName;
@@ -104,19 +104,19 @@ int main(int argc, char *argv[])
 
 	
 
-	//functionµÄÎ»ÖÃ
+	//functionçš„ä½ç½®
 	pos = strpos(fstr, "function", 0);
 
-	//×óÀ¨ºÅÎ»ÖÃ
+	//å·¦æ‹¬å·ä½ç½®
 	pos_bracket_left = strpos(fstr, "(", pos);
 	
-	//»ñµÃº¯ÊıÃû
+	//è·å¾—å‡½æ•°å
 	functionName = (char *)malloc((pos_bracket_left-pos+1)*sizeof(char));
 	functionLen = strlen("function ");
 	strncpy(functionName, fstr+pos+functionLen, pos_bracket_left-functionLen-pos);
 	*(functionName + (pos_bracket_left-functionLen-pos)) = '\0';
 	
-	//ÓÒÀ¨ºÅÎ»ÖÃ
+	//å³æ‹¬å·ä½ç½®
 	p = fstr+strlen(fstr)-1;
 	pos_bracket_right = strlen(fstr);
 	while (p>fstr && (*p!=')')) {
@@ -124,11 +124,11 @@ int main(int argc, char *argv[])
 		p--;
 	}
 	
-	//×Ö·û´®Á´Ìõ
-	head = newStringArr();	//Í·½Úµã
-	lastnode = head;			//Î²½Úµã
+	//å­—ç¬¦ä¸²é“¾æ¡
+	head = newStringArr();	//å¤´èŠ‚ç‚¹
+	lastnode = head;			//å°¾èŠ‚ç‚¹
 	
-	//²ğ·ÖÌáÈ¡Ã¿¸ö²ÎÊıÃû	
+	//æ‹†åˆ†æå–æ¯ä¸ªå‚æ•°å	
 	for (i=pos_bracket_left; i<pos_bracket_right; i++)
 	{
 		c = *(fstr+i);
@@ -151,15 +151,15 @@ int main(int argc, char *argv[])
 	}
 
 	//StringArrPrint(head);
-	//´òÓ¡×¢ÊÍ
+	//æ‰“å°æ³¨é‡Š
 	printComment(head, functionName);
 
-	//ÊÍ·ÅÄÚ´æ
+	//é‡Šæ”¾å†…å­˜
 	free(fstr);
 	free(functionName);
 	StringArrFree(head);
 	
-	//StringArr²âÊÔ
+	//StringArræµ‹è¯•
 	//void testStringArr();
 	//testStringArr();
 
